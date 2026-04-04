@@ -108,7 +108,7 @@ export default function ArtworkForm({ mode, artwork }: ArtworkFormProps) {
   };
 
   const inputClasses =
-    "w-full bg-bg-tertiary border border-border rounded-sm px-4 py-3 text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:border-accent/50 transition-colors";
+    "w-full bg-bg-secondary border border-border rounded-xl px-4 py-3 text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:border-accent/50 focus:ring-2 focus:ring-accent/10 transition-all";
 
   return (
     <form onSubmit={handleSubmit} className="max-w-2xl space-y-6">
@@ -244,7 +244,7 @@ export default function ArtworkForm({ mode, artwork }: ArtworkFormProps) {
         <button
           type="submit"
           disabled={loading}
-          className="flex items-center justify-center gap-2 text-sm tracking-[0.15em] uppercase bg-accent text-bg-primary px-8 py-3 hover:bg-accent-hover transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed min-w-[160px]"
+          className="flex items-center justify-center gap-2 text-sm bg-accent text-white px-8 py-3 rounded-full hover:bg-accent-hover transition-colors duration-300 shadow-sm disabled:opacity-50 disabled:cursor-not-allowed min-w-[160px]"
         >
           {loading ? (
             <LoadingSpinner size="sm" />
@@ -257,7 +257,7 @@ export default function ArtworkForm({ mode, artwork }: ArtworkFormProps) {
         <button
           type="button"
           onClick={() => router.back()}
-          className="text-sm tracking-[0.15em] uppercase text-text-secondary px-8 py-3 border border-border hover:border-text-secondary transition-colors duration-300"
+          className="text-sm text-text-secondary px-8 py-3 rounded-full border border-border hover:border-text-secondary transition-colors duration-300"
         >
           Cancel
         </button>

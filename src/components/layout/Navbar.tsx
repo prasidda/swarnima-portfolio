@@ -31,26 +31,26 @@ export default function Navbar() {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled
-          ? "bg-bg-primary/80 backdrop-blur-lg border-b border-border"
+          ? "bg-bg-primary/90 backdrop-blur-md border-b border-border shadow-sm"
           : "bg-transparent"
       }`}
     >
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="flex h-20 items-center justify-between">
+      <div className="mx-auto max-w-6xl px-6 lg:px-8">
+        <div className="flex h-18 items-center justify-between">
           <Link
             href="/"
-            className="font-serif text-2xl tracking-[0.2em] text-text-primary hover:text-accent transition-colors duration-300"
+            className="font-serif text-2xl text-text-primary hover:text-accent transition-colors duration-300"
           >
-            SWARNIMA
+            Swarnima
           </Link>
 
           {/* Desktop links */}
-          <div className="hidden md:flex items-center gap-10">
+          <div className="hidden md:flex items-center gap-8">
             {links.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className={`relative text-sm tracking-[0.15em] uppercase transition-colors duration-300 ${
+                className={`relative text-sm transition-colors duration-300 ${
                   pathname === link.href
                     ? "text-accent"
                     : "text-text-secondary hover:text-text-primary"
@@ -60,7 +60,7 @@ export default function Navbar() {
                 {pathname === link.href && (
                   <motion.span
                     layoutId="navbar-indicator"
-                    className="absolute -bottom-1 left-0 right-0 h-px bg-accent"
+                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-accent rounded-full"
                     transition={{ type: "spring", stiffness: 300, damping: 30 }}
                   />
                 )}
@@ -74,7 +74,7 @@ export default function Navbar() {
             className="md:hidden text-text-primary p-2"
             aria-label="Toggle menu"
           >
-            {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+            {mobileOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
       </div>
@@ -87,14 +87,14 @@ export default function Navbar() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="md:hidden bg-bg-primary/95 backdrop-blur-lg border-b border-border overflow-hidden"
+            className="md:hidden bg-bg-primary/95 backdrop-blur-md border-b border-border overflow-hidden"
           >
-            <div className="px-6 py-6 flex flex-col gap-6">
+            <div className="px-6 py-5 flex flex-col gap-4">
               {links.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`text-lg tracking-[0.15em] uppercase transition-colors duration-300 ${
+                  className={`text-base transition-colors duration-300 ${
                     pathname === link.href
                       ? "text-accent"
                       : "text-text-secondary hover:text-text-primary"

@@ -5,49 +5,47 @@ import { ChevronDown } from "lucide-react";
 import Link from "next/link";
 
 export default function HeroSection() {
-  const nameLetters = "SWARNIMA".split("");
-
   return (
-    <section className="relative h-screen flex items-center justify-center overflow-hidden">
-      {/* Subtle gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-bg-primary via-bg-primary to-bg-secondary" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(201,169,110,0.04),transparent_70%)]" />
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Soft gradient background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-accent-light/30 via-bg-primary to-bg-primary" />
 
-      <div className="relative z-10 text-center px-6">
-        {/* Animated name */}
-        <h1 className="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-[7rem] tracking-[0.15em] mb-6">
-          {nameLetters.map((letter, i) => (
-            <motion.span
-              key={i}
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                duration: 0.8,
-                delay: 0.3 + i * 0.08,
-                ease: [0.25, 0.46, 0.45, 0.94],
-              }}
-              className="inline-block"
-            >
-              {letter}
-            </motion.span>
-          ))}
-        </h1>
+      <div className="relative z-10 text-center px-6 max-w-2xl">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
+          <p className="text-accent text-sm tracking-[0.2em] uppercase mb-4">
+            Welcome to my little corner
+          </p>
+        </motion.div>
+
+        <motion.h1
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+          className="font-serif text-5xl sm:text-6xl md:text-7xl font-light text-text-primary mb-6"
+        >
+          Swarnima
+        </motion.h1>
 
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1.2 }}
+          transition={{ duration: 1, delay: 0.6 }}
           className="space-y-8"
         >
-          <p className="text-text-secondary text-lg sm:text-xl tracking-[0.3em] uppercase">
-            Fine Art Portfolio
+          <p className="text-text-secondary text-lg leading-relaxed">
+            Handmade paintings created with love, one brushstroke at a time.
+            Each piece tells its own little story.
           </p>
 
           <Link
             href="/gallery"
-            className="inline-block text-sm tracking-[0.2em] uppercase text-accent border border-accent/30 px-8 py-3 hover:bg-accent/10 hover:border-accent transition-all duration-500"
+            className="inline-block text-sm tracking-wider bg-accent text-white px-8 py-3.5 rounded-full hover:bg-accent-hover transition-all duration-300 shadow-sm hover:shadow-md"
           >
-            View Collection
+            See My Work
           </Link>
         </motion.div>
       </div>
@@ -56,14 +54,14 @@ export default function HeroSection() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 2, duration: 1 }}
+        transition={{ delay: 1.5, duration: 1 }}
         className="absolute bottom-10 left-1/2 -translate-x-1/2"
       >
         <motion.div
           animate={{ y: [0, 8, 0] }}
           transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
         >
-          <ChevronDown size={24} className="text-text-secondary/50" />
+          <ChevronDown size={22} className="text-text-secondary/40" />
         </motion.div>
       </motion.div>
     </section>

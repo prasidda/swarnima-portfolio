@@ -42,7 +42,7 @@ export default function ImageUploader({
     <div>
       {previewUrl ? (
         <div className="relative">
-          <div className="relative aspect-[3/4] max-w-xs bg-bg-tertiary rounded-sm overflow-hidden">
+          <div className="relative aspect-[3/4] max-w-xs bg-bg-tertiary rounded-xl overflow-hidden">
             <Image
               src={previewUrl}
               alt="Preview"
@@ -65,10 +65,10 @@ export default function ImageUploader({
       ) : (
         <div
           {...getRootProps()}
-          className={`border-2 border-dashed rounded-sm p-12 text-center cursor-pointer transition-colors ${
+          className={`border-2 border-dashed rounded-xl p-12 text-center cursor-pointer transition-colors ${
             isDragActive
-              ? "border-accent bg-accent/5"
-              : "border-border hover:border-text-secondary"
+              ? "border-accent bg-accent-light/30"
+              : "border-border hover:border-accent/40"
           }`}
         >
           <input {...getInputProps()} />

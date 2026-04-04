@@ -75,11 +75,11 @@ export default function ArtworkTable({ artworks }: { artworks: Artwork[] }) {
 
   if (artworks.length === 0) {
     return (
-      <div className="text-center py-16 bg-bg-secondary rounded-sm border border-border">
+      <div className="text-center py-16 bg-bg-secondary rounded-xl border border-border">
         <p className="text-text-secondary mb-4">No artworks uploaded yet.</p>
         <Link
           href="/admin/upload"
-          className="text-sm tracking-[0.15em] uppercase text-accent hover:text-accent-hover transition-colors"
+          className="text-sm text-accent hover:text-accent-hover transition-colors"
         >
           Upload your first artwork
         </Link>

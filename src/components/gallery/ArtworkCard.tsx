@@ -14,41 +14,37 @@ interface ArtworkCardProps {
 export default function ArtworkCard({ artwork, index }: ArtworkCardProps) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: index * 0.05, ease: "easeOut" }}
+      transition={{ duration: 0.5, delay: index * 0.06, ease: "easeOut" }}
     >
       <Link href={`/artwork/${artwork.id}`} className="group block">
-        <div className="relative overflow-hidden rounded-sm bg-bg-secondary">
+        <div className="relative overflow-hidden rounded-xl bg-bg-secondary shadow-sm hover:shadow-md transition-shadow duration-300">
           <div className="aspect-[3/4] relative">
             <AnimatedImage
               src={getImageUrl(artwork.image_path)}
               alt={artwork.title}
               fill
-              className="object-cover transition-transform duration-700 group-hover:scale-105"
+              className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
             />
-            {/* Hover overlay */}
-            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all duration-500 flex items-end">
-              <div className="p-6 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
-                <h3 className="font-serif text-lg text-white">{artwork.title}</h3>
-                {artwork.medium && (
-                  <p className="text-sm text-white/70 mt-1">{artwork.medium}</p>
-                )}
-              </div>
-            </div>
             {/* Sold badge */}
             {artwork.is_sold && (
-              <div className="absolute top-4 right-4 bg-bg-primary/90 text-accent text-xs tracking-[0.2em] uppercase px-3 py-1.5 rounded-sm">
+              <div className="absolute top-3 right-3 bg-accent text-white text-xs tracking-wider px-3 py-1 rounded-full">
                 Sold
               </div>
             )}
           </div>
         </div>
-        {/* Title below card on mobile */}
-        <div className="mt-3 md:hidden">
-          <h3 className="font-serif text-base text-text-primary">{artwork.title}</h3>
+        {/* Info below card */}
+        <div className="mt-3 px-1">
+          <h3 className="font-serif text-lg text-text-primary group-hover:text-accent transition-colors">
+            {artwork.title}
+          </h3>
           {artwork.medium && (
             <p className="text-sm text-text-secondary mt-0.5">{artwork.medium}</p>
+          )}
+          {artwork.price && !artwork.is_sold && (
+            <p className="text-sm text-accent mt-1">${artwork.price.toLocaleString()}</p>
           )}
         </div>
       </Link>

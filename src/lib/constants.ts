@@ -1,12 +1,12 @@
 export const SITE_NAME = "Swarnima";
-export const SITE_DESCRIPTION = "Original artwork by Swarnima — exploring color, emotion, and form.";
+export const SITE_DESCRIPTION = "Handmade paintings and artwork by Swarnima — made with love, one brushstroke at a time.";
 
 export const CATEGORIES = [
   "All",
-  "Portraits",
-  "Landscapes",
+  "Paintings",
+  "Sketches",
+  "Watercolor",
   "Abstract",
-  "Still Life",
   "Mixed Media",
 ] as const;
 

@@ -19,25 +19,25 @@ export default function CategoryFilter({
   );
 
   return (
-    <div className="flex flex-wrap gap-3 justify-center">
+    <div className="flex flex-wrap gap-2 justify-center">
       {categories.map((category) => (
         <button
           key={category}
           onClick={() => onSelect(category)}
-          className={`relative px-5 py-2 text-sm tracking-[0.12em] uppercase transition-colors duration-300 ${
+          className={`relative px-5 py-2 text-sm rounded-full transition-all duration-300 ${
             selected === category
-              ? "text-accent"
-              : "text-text-secondary hover:text-text-primary"
+              ? "text-white"
+              : "text-text-secondary hover:text-text-primary bg-bg-secondary border border-border"
           }`}
         >
           {selected === category && (
             <motion.span
               layoutId="category-pill"
-              className="absolute inset-0 border border-accent rounded-full"
+              className="absolute inset-0 bg-accent rounded-full"
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
             />
           )}
-          {category}
+          <span className="relative z-10">{category}</span>
         </button>
       ))}
     </div>

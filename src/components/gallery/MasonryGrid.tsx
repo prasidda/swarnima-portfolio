@@ -17,8 +17,10 @@ const breakpointColumns = {
 export default function MasonryGrid({ artworks }: MasonryGridProps) {
   if (artworks.length === 0) {
     return (
-      <div className="text-center py-24">
-        <p className="text-text-secondary text-lg">No artworks to display yet.</p>
+      <div className="text-center py-20">
+        <p className="text-text-secondary text-lg">
+          Nothing here yet — check back soon!
+        </p>
       </div>
     );
   }
@@ -26,11 +28,11 @@ export default function MasonryGrid({ artworks }: MasonryGridProps) {
   return (
     <Masonry
       breakpointCols={breakpointColumns}
-      className="flex -ml-6 w-auto"
-      columnClassName="pl-6 bg-clip-padding"
+      className="flex -ml-8 w-auto"
+      columnClassName="pl-8 bg-clip-padding"
     >
       {artworks.map((artwork, index) => (
-        <div key={artwork.id} className="mb-6">
+        <div key={artwork.id} className="mb-8">
           <ArtworkCard artwork={artwork} index={index} />
         </div>
       ))}

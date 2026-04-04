@@ -34,26 +34,29 @@ export default function AdminLoginPage() {
     router.refresh();
   };
 
+  const inputClasses =
+    "w-full bg-bg-secondary border border-border rounded-xl px-4 py-3 text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:border-accent/50 focus:ring-2 focus:ring-accent/10 transition-all";
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-bg-primary px-6">
       <div className="w-full max-w-sm">
-        <div className="text-center mb-10">
-          <Palette size={40} className="text-accent mx-auto mb-4" />
-          <h1 className="font-serif text-2xl tracking-[0.15em]">Admin</h1>
-          <p className="text-sm text-text-secondary mt-2">
-            Sign in to manage your portfolio
+        <div className="text-center mb-8">
+          <Palette size={36} className="text-accent mx-auto mb-3" />
+          <h1 className="font-serif text-2xl text-text-primary">Welcome Back</h1>
+          <p className="text-sm text-text-secondary mt-1">
+            Sign in to manage your art
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-5">
+        <form onSubmit={handleSubmit} className="space-y-4">
           {error && (
-            <div className="text-sm text-red-400 text-center bg-red-400/10 border border-red-400/20 rounded-sm px-4 py-3">
+            <div className="text-sm text-red-500 text-center bg-red-50 border border-red-200 rounded-xl px-4 py-3">
               {error}
             </div>
           )}
 
           <div>
-            <label className="block text-xs tracking-[0.2em] uppercase text-text-secondary mb-2">
+            <label className="block text-sm text-text-secondary mb-1.5">
               Email
             </label>
             <input
@@ -61,13 +64,13 @@ export default function AdminLoginPage() {
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full bg-bg-secondary border border-border rounded-sm px-4 py-3 text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:border-accent/50 transition-colors"
+              className={inputClasses}
               placeholder="your@email.com"
             />
           </div>
 
           <div>
-            <label className="block text-xs tracking-[0.2em] uppercase text-text-secondary mb-2">
+            <label className="block text-sm text-text-secondary mb-1.5">
               Password
             </label>
             <input
@@ -75,7 +78,7 @@ export default function AdminLoginPage() {
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full bg-bg-secondary border border-border rounded-sm px-4 py-3 text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:border-accent/50 transition-colors"
+              className={inputClasses}
               placeholder="Enter password"
             />
           </div>
@@ -83,7 +86,7 @@ export default function AdminLoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full flex items-center justify-center text-sm tracking-[0.2em] uppercase bg-accent text-bg-primary px-8 py-3.5 hover:bg-accent-hover transition-colors duration-300 disabled:opacity-50"
+            className="w-full flex items-center justify-center text-sm bg-accent text-white px-8 py-3.5 rounded-full hover:bg-accent-hover transition-colors duration-300 shadow-sm disabled:opacity-50"
           >
             {loading ? <LoadingSpinner size="sm" /> : "Sign In"}
           </button>
