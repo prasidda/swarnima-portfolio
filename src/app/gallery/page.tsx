@@ -3,22 +3,32 @@ import { createClient } from "@/lib/supabase/server";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import GalleryContent from "./GalleryContent";
+import { Artwork } from "@/lib/types";
 
 export const metadata: Metadata = {
   title: "Gallery",
   description: "Browse the complete collection of original artwork by Swarnima.",
 };
 
+async function getArtworks(): Promise<Artwork[]> {
+  try {
+    const supabase = await createClient();
+    const { data } = await supabase
+      .from("artworks")
+      .select("*")
+      .order("display_order", { ascending: true });
+    return data ?? [];
+  } catch {
+    return [];
+  }
+}
+
 export default async function GalleryPage() {
-  const supabase = await createClient();
-  const { data: artworks } = await supabase
-    .from("artworks")
-    .select("*")
-    .order("display_order", { ascending: true });
+  const artworks = await getArtworks();
 
   const categories = [
     ...new Set(
-      (artworks ?? [])
+      artworks
         .map((a) => a.category)
         .filter((c): c is string => c !== null)
     ),
@@ -38,7 +48,7 @@ export default async function GalleryPage() {
           </p>
         </div>
         <GalleryContent
-          artworks={artworks ?? []}
+          artworks={artworks}
           availableCategories={categories}
         />
       </main>

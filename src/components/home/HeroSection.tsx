@@ -15,7 +15,7 @@ export default function HeroSection() {
 
       <div className="relative z-10 text-center px-6">
         {/* Animated name */}
-        <h1 className="font-serif text-6xl sm:text-7xl md:text-8xl lg:text-9xl tracking-[0.25em] mb-6">
+        <h1 className="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-[7rem] tracking-[0.15em] mb-6">
           {nameLetters.map((letter, i) => (
             <motion.span
               key={i}

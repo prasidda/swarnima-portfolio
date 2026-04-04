@@ -11,43 +11,51 @@ interface Props {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { id } = await params;
-  const supabase = await createClient();
-  const { data: artwork } = await supabase
-    .from("artworks")
-    .select("*")
-    .eq("id", id)
-    .single();
+  try {
+    const { id } = await params;
+    const supabase = await createClient();
+    const { data: artwork } = await supabase
+      .from("artworks")
+      .select("*")
+      .eq("id", id)
+      .single();
 
-  if (!artwork) return { title: "Artwork Not Found" };
+    if (!artwork) return { title: "Artwork Not Found" };
 
-  return {
-    title: artwork.title,
-    description: artwork.description || `${artwork.title} by Swarnima`,
-    openGraph: {
-      images: [{ url: getImageUrl(artwork.image_path) }],
-    },
-  };
+    return {
+      title: artwork.title,
+      description: artwork.description || `${artwork.title} by Swarnima`,
+      openGraph: {
+        images: [{ url: getImageUrl(artwork.image_path) }],
+      },
+    };
+  } catch {
+    return { title: "Artwork Not Found" };
+  }
 }
 
 export default async function ArtworkPage({ params }: Props) {
-  const { id } = await params;
-  const supabase = await createClient();
-  const { data: artwork } = await supabase
-    .from("artworks")
-    .select("*")
-    .eq("id", id)
-    .single();
+  try {
+    const { id } = await params;
+    const supabase = await createClient();
+    const { data: artwork } = await supabase
+      .from("artworks")
+      .select("*")
+      .eq("id", id)
+      .single();
 
-  if (!artwork) notFound();
+    if (!artwork) notFound();
 
-  return (
-    <>
-      <Navbar />
-      <main>
-        <ArtworkDetail artwork={artwork} />
-      </main>
-      <Footer />
-    </>
-  );
+    return (
+      <>
+        <Navbar />
+        <main>
+          <ArtworkDetail artwork={artwork} />
+        </main>
+        <Footer />
+      </>
+    );
+  } catch {
+    notFound();
+  }
 }
