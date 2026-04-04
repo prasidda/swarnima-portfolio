@@ -43,7 +43,7 @@ export default async function GalleryPage() {
             Gallery
           </h1>
           <p className="text-text-secondary max-w-md mx-auto">
-            Everything I&apos;ve made so far — browse around and see if anything catches your eye!
+            Browse all of my artwork below.
           </p>
         </div>
         <GalleryContent

@@ -1,5 +1,5 @@
 export const SITE_NAME = "Swarnima";
-export const SITE_DESCRIPTION = "Handmade paintings and artwork by Swarnima — made with love, one brushstroke at a time.";
+export const SITE_DESCRIPTION = "Handmade paintings and artwork by Swarnima.";
 
 export const CATEGORIES = [
   "All",

@@ -17,7 +17,7 @@ export default function HeroSection() {
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
           <p className="text-accent text-sm tracking-[0.2em] uppercase mb-4">
-            Welcome to my little corner
+            Welcome to my art portfolio
           </p>
         </motion.div>
 
@@ -37,8 +37,7 @@ export default function HeroSection() {
           className="space-y-8"
         >
           <p className="text-text-secondary text-lg leading-relaxed">
-            Handmade paintings created with love, one brushstroke at a time.
-            Each piece tells its own little story.
+            Handmade paintings, each piece is unique and tells its own story.
           </p>
 
           <Link

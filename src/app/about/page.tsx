@@ -16,7 +16,7 @@ export default function AboutPage() {
           <h1 className="font-serif text-4xl sm:text-5xl text-text-primary mb-3">
             About Me
           </h1>
-          <p className="text-text-secondary">The person behind the paintbrush</p>
+          <p className="text-text-secondary">A bit about me</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
@@ -32,21 +32,18 @@ export default function AboutPage() {
             </h2>
             <div className="space-y-4 text-text-secondary leading-relaxed">
               <p>
-                I&apos;m a self-taught artist who paints from home. For me,
-                art isn&apos;t about being in a fancy studio — it&apos;s about
-                picking up a brush after a long day and losing myself in
-                colors and shapes.
+                I&apos;m a self-taught artist who paints from home. I work
+                with whatever medium fits the idea — watercolors, acrylics,
+                mixed media, or just pencil on paper.
               </p>
               <p>
-                I work with whatever inspires me in the moment — watercolors,
-                acrylics, mixed media, sometimes just pencil on paper. Every
-                piece is unique and made entirely by hand.
+                Every piece here is handmade and one of a kind. Painting is
+                something I do because I genuinely enjoy it, and this site
+                is where I share the results.
               </p>
               <p>
-                When I&apos;m not painting, you can probably find me with a
-                cup of chai, daydreaming about my next piece. I hope my art
-                brings a little warmth and joy to your space, the way
-                creating it brings joy to mine.
+                If something catches your eye or you have any questions,
+                feel free to reach out through the contact page.
               </p>
             </div>
           </div>

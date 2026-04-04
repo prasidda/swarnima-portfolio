@@ -17,8 +17,37 @@ export default function ContactForm() {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
 
+  const checkRateLimit = (): boolean => {
+    const key = "contact_submissions";
+    const now = Date.now();
+    const windowMs = 60 * 60 * 1000; // 1 hour
+    const maxSubmissions = 3;
+
+    try {
+      const stored = localStorage.getItem(key);
+      const timestamps: number[] = stored ? JSON.parse(stored) : [];
+      const recent = timestamps.filter((t) => now - t < windowMs);
+
+      if (recent.length >= maxSubmissions) {
+        return false;
+      }
+
+      recent.push(now);
+      localStorage.setItem(key, JSON.stringify(recent));
+      return true;
+    } catch {
+      return true;
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!checkRateLimit()) {
+      toast.error("You've sent too many messages. Please try again later.");
+      return;
+    }
+
     setLoading(true);
 
     try {
@@ -49,7 +78,7 @@ export default function ContactForm() {
           Say Hello
         </h1>
         <p className="text-text-secondary">
-          Want a piece? Have a question? Just want to chat about art? Drop me a message!
+          Have a question or interested in a piece? Send me a message.
         </p>
       </div>
 
@@ -75,7 +104,7 @@ export default function ContactForm() {
               value={name}
               onChange={(e) => setName(e.target.value)}
               className={inputClasses}
-              placeholder="What should I call you?"
+              placeholder="Your name"
             />
           </div>
 
@@ -105,8 +134,8 @@ export default function ContactForm() {
               className={`${inputClasses} resize-none`}
               placeholder={
                 artworkId
-                  ? "I love this piece! Tell me more..."
-                  : "What's on your mind?"
+                  ? "I'm interested in this piece..."
+                  : "Your message"
               }
             />
           </div>

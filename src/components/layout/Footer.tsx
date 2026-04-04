@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { AtSign, Mail, Heart } from "lucide-react";
+import { AtSign, Mail } from "lucide-react";
 
 export default function Footer() {
   return (
@@ -14,7 +14,7 @@ export default function Footer() {
               Swarnima
             </Link>
             <p className="text-sm text-text-secondary flex items-center gap-1">
-              Made with <Heart size={12} className="text-accent fill-accent" /> by Swarnima
+              Made by Swarnima
             </p>
           </div>
 
