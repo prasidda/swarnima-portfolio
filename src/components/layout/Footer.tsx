@@ -11,7 +11,7 @@ export default function Footer() {
               href="/"
               className="font-serif text-xl text-text-primary hover:text-accent transition-colors"
             >
-              Swarnima and Samana
+              The Adhikari Collection
             </Link>
             <p className="text-sm text-text-secondary">
               Made by Swarnima and Samana

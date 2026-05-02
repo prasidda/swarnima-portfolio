@@ -41,7 +41,7 @@ export default function Navbar() {
             href="/"
             className="font-serif text-lg sm:text-xl md:text-2xl text-text-primary hover:text-accent transition-colors duration-300 truncate"
           >
-            Swarnima &amp; Samana
+            The Adhikari Collection
           </Link>
 
           {/* Desktop links */}

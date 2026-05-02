@@ -27,7 +27,7 @@ export default function HeroSection() {
           transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
           className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light text-text-primary mb-6 leading-tight"
         >
-          Swarnima and Samana
+          The Adhikari Collection
         </motion.h1>
 
         <motion.div

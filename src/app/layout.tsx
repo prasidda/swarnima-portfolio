@@ -16,15 +16,15 @@ const cormorant = Cormorant_Garamond({
 
 export const metadata: Metadata = {
   title: {
-    default: "Swarnima and Samana | Handmade Art",
-    template: "%s | Swarnima and Samana",
+    default: "The Adhikari Collection | Handmade Art",
+    template: "%s | The Adhikari Collection",
   },
   description:
-    "Handmade paintings and artwork by Swarnima and Samana.",
+    "The Adhikari Collection — handmade paintings and artwork by Swarnima and Samana.",
   openGraph: {
-    title: "Swarnima and Samana | Handmade Art",
+    title: "The Adhikari Collection | Handmade Art",
     description:
-      "Handmade paintings and artwork by Swarnima and Samana.",
+      "The Adhikari Collection — handmade paintings and artwork by Swarnima and Samana.",
     type: "website",
   },
 };
