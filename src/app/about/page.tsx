@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 const artists = [
   {
     name: "Swarnima",
-    photo: "/swarnima.jpg",
+    photo: "/swarnima.jpeg",
     bio: "I am a visual artist who explores culture, place, and everyday life through my work. My art ranges from detailed cultural scenes to city landscapes and more contemporary subjects, often focusing on atmosphere, emotion, and storytelling. I enjoy capturing both traditional and modern environments, drawing inspiration from different places and experiences that shape how I see the world.",
   },
   {
