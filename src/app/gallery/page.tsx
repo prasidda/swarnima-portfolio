@@ -7,7 +7,7 @@ import { Artwork } from "@/lib/types";
 
 export const metadata: Metadata = {
   title: "Gallery",
-  description: "Browse all handmade artwork by Swarnima.",
+  description: "Browse all handmade artwork by Swarnima and Samana.",
 };
 
 async function getArtworks(): Promise<Artwork[]> {
@@ -26,11 +26,11 @@ async function getArtworks(): Promise<Artwork[]> {
 export default async function GalleryPage() {
   const artworks = await getArtworks();
 
-  const categories = [
+  const artists = [
     ...new Set(
       artworks
-        .map((a) => a.category)
-        .filter((c): c is string => c !== null)
+        .map((a) => a.artist)
+        .filter((a): a is string => a !== null && a !== "")
     ),
   ];
 
@@ -43,12 +43,12 @@ export default async function GalleryPage() {
             Gallery
           </h1>
           <p className="text-text-secondary max-w-md mx-auto">
-            Browse all of my artwork below.
+            Browse all of our artwork below.
           </p>
         </div>
         <GalleryContent
           artworks={artworks}
-          availableCategories={categories}
+          availableArtists={artists}
         />
       </main>
       <Footer />

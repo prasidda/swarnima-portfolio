@@ -42,12 +42,13 @@ export default function ImageUploader({
     <div>
       {previewUrl ? (
         <div className="relative">
-          <div className="relative aspect-[3/4] max-w-xs bg-bg-tertiary rounded-xl overflow-hidden">
+          <div className="relative max-w-sm bg-bg-tertiary rounded-xl overflow-hidden">
             <Image
               src={previewUrl}
               alt="Preview"
-              fill
-              className="object-cover"
+              width={600}
+              height={600}
+              className="block w-full h-auto"
               unoptimized={!!file}
             />
           </div>

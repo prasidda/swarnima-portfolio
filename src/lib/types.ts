@@ -9,6 +9,8 @@ export interface Artwork {
   image_path: string;
   thumbnail_path: string | null;
   category: string | null;
+  artist: string | null;
+  additional_images: string[] | null;
   is_sold: boolean;
   is_featured: boolean;
   display_order: number;
@@ -21,8 +23,10 @@ export interface ArtworkFormData {
   description: string;
   medium: string;
   dimensions: string;
-  year: string;
   price: string;
-  category: string;
+  artist: string;
   is_featured: boolean;
 }
+
+export const ARTISTS = ["Swarnima", "Samana"] as const;
+export type ArtistName = (typeof ARTISTS)[number];

@@ -14,7 +14,7 @@ export default function FeaturedGallery({ artworks }: FeaturedGalleryProps) {
   if (artworks.length === 0) return null;
 
   return (
-    <section className="py-20 px-6 lg:px-8 max-w-6xl mx-auto">
+    <section className="py-16 sm:py-20 px-6 lg:px-8 max-w-6xl mx-auto">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -25,10 +25,10 @@ export default function FeaturedGallery({ artworks }: FeaturedGalleryProps) {
         <h2 className="font-serif text-3xl sm:text-4xl text-text-primary mb-3">
           Favorites
         </h2>
-        <p className="text-text-secondary">A few of my pieces — there&apos;s a lot more</p>
+        <p className="text-text-secondary">A few of our pieces — there&apos;s a lot more</p>
       </motion.div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 items-start">
         {artworks.map((artwork, index) => (
           <ArtworkCard key={artwork.id} artwork={artwork} index={index} />
         ))}

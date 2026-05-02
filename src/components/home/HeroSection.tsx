@@ -6,18 +6,18 @@ import Link from "next/link";
 
 export default function HeroSection() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-[100svh] flex items-center justify-center overflow-hidden px-6">
       {/* Soft gradient background */}
       <div className="absolute inset-0 bg-gradient-to-b from-accent-light/30 via-bg-primary to-bg-primary" />
 
-      <div className="relative z-10 text-center px-6 max-w-2xl">
+      <div className="relative z-10 text-center max-w-2xl w-full">
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          <p className="text-accent text-sm tracking-[0.2em] uppercase mb-4">
-            Welcome to my art portfolio
+          <p className="text-accent text-xs sm:text-sm tracking-[0.15em] sm:tracking-[0.2em] uppercase mb-4">
+            Welcome to our art portfolio
           </p>
         </motion.div>
 
@@ -25,9 +25,9 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-          className="font-serif text-5xl sm:text-6xl md:text-7xl font-light text-text-primary mb-6"
+          className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light text-text-primary mb-6 leading-tight"
         >
-          Swarnima
+          Swarnima and Samana
         </motion.h1>
 
         <motion.div
@@ -36,7 +36,7 @@ export default function HeroSection() {
           transition={{ duration: 1, delay: 0.6 }}
           className="space-y-8"
         >
-          <p className="text-text-secondary text-lg leading-relaxed">
+          <p className="text-text-secondary text-base sm:text-lg leading-relaxed max-w-xl mx-auto">
             Handmade paintings, each piece is unique and tells its own story.
           </p>
 
@@ -44,7 +44,7 @@ export default function HeroSection() {
             href="/gallery"
             className="inline-block text-sm tracking-wider bg-accent text-white px-8 py-3.5 rounded-full hover:bg-accent-hover transition-all duration-300 shadow-sm hover:shadow-md"
           >
-            See My Work
+            See Our Work
           </Link>
         </motion.div>
       </div>
@@ -54,7 +54,7 @@ export default function HeroSection() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5, duration: 1 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2"
       >
         <motion.div
           animate={{ y: [0, 8, 0] }}

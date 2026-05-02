@@ -2,34 +2,34 @@
 
 import { useState } from "react";
 import { Artwork } from "@/lib/types";
-import CategoryFilter from "@/components/gallery/CategoryFilter";
+import ArtistFilter from "@/components/gallery/ArtistFilter";
 import MasonryGrid from "@/components/gallery/MasonryGrid";
 import PageTransition from "@/components/ui/PageTransition";
 
 interface GalleryContentProps {
   artworks: Artwork[];
-  availableCategories: string[];
+  availableArtists: string[];
 }
 
 export default function GalleryContent({
   artworks,
-  availableCategories,
+  availableArtists,
 }: GalleryContentProps) {
-  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [selected, setSelected] = useState("All");
 
   const filtered =
-    selectedCategory === "All"
+    selected === "All"
       ? artworks
-      : artworks.filter((a) => a.category === selectedCategory);
+      : artworks.filter((a) => a.artist === selected);
 
   return (
     <PageTransition>
-      {availableCategories.length > 1 && (
+      {availableArtists.length > 1 && (
         <div className="mb-12">
-          <CategoryFilter
-            selected={selectedCategory}
-            onSelect={setSelectedCategory}
-            availableCategories={availableCategories}
+          <ArtistFilter
+            selected={selected}
+            onSelect={setSelected}
+            availableArtists={availableArtists}
           />
         </div>
       )}

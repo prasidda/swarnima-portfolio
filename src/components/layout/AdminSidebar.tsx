@@ -28,8 +28,8 @@ export default function AdminSidebar() {
       <div className="p-5 border-b border-border">
         <Link href="/" className="flex items-center gap-2.5 group">
           <Palette size={22} className="text-accent" />
-          <span className="font-serif text-lg text-text-primary group-hover:text-accent transition-colors">
-            Swarnima
+          <span className="font-serif text-base text-text-primary group-hover:text-accent transition-colors">
+            Swarnima &amp; Samana
           </span>
         </Link>
         <p className="text-xs text-text-secondary mt-1">

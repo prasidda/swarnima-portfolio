@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { AtSign, Mail } from "lucide-react";
+import { Mail } from "lucide-react";
 
 export default function Footer() {
   return (
@@ -11,23 +11,14 @@ export default function Footer() {
               href="/"
               className="font-serif text-xl text-text-primary hover:text-accent transition-colors"
             >
-              Swarnima
+              Swarnima and Samana
             </Link>
-            <p className="text-sm text-text-secondary flex items-center gap-1">
-              Made by Swarnima
+            <p className="text-sm text-text-secondary">
+              Made by Swarnima and Samana
             </p>
           </div>
 
           <div className="flex items-center gap-5">
-            <a
-              href="https://www.instagram.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-text-secondary hover:text-accent transition-colors duration-300"
-              aria-label="Instagram"
-            >
-              <AtSign size={18} />
-            </a>
             <a
               href="mailto:hello@swarnima.art"
               className="text-text-secondary hover:text-accent transition-colors duration-300"

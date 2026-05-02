@@ -24,7 +24,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
     return {
       title: artwork.title,
-      description: artwork.description || `${artwork.title} by Swarnima`,
+      description:
+        artwork.description ||
+        `${artwork.title}${artwork.artist ? ` by ${artwork.artist}` : ""}`,
       openGraph: {
         images: [{ url: getImageUrl(artwork.image_path) }],
       },

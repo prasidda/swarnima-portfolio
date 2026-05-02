@@ -39,9 +39,9 @@ export default function Navbar() {
         <div className="flex h-18 items-center justify-between">
           <Link
             href="/"
-            className="font-serif text-2xl text-text-primary hover:text-accent transition-colors duration-300"
+            className="font-serif text-lg sm:text-xl md:text-2xl text-text-primary hover:text-accent transition-colors duration-300 truncate"
           >
-            Swarnima
+            Swarnima &amp; Samana
           </Link>
 
           {/* Desktop links */}

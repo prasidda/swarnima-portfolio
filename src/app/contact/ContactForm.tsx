@@ -78,7 +78,7 @@ export default function ContactForm() {
           Say Hello
         </h1>
         <p className="text-text-secondary">
-          Have a question or interested in a piece? Send me a message.
+          Have a question or interested in a piece? Send us a message.
         </p>
       </div>
 
@@ -89,7 +89,7 @@ export default function ContactForm() {
           </div>
           <h2 className="font-serif text-2xl text-text-primary mb-2">Got it!</h2>
           <p className="text-text-secondary">
-            Thanks for reaching out — I&apos;ll get back to you as soon as I can.
+            Thanks for reaching out — we&apos;ll get back to you as soon as we can.
           </p>
         </div>
       ) : (

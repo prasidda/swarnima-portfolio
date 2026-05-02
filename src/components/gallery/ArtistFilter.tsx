@@ -1,43 +1,40 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { CATEGORIES } from "@/lib/constants";
 
-interface CategoryFilterProps {
+interface ArtistFilterProps {
   selected: string;
-  onSelect: (category: string) => void;
-  availableCategories: string[];
+  onSelect: (artist: string) => void;
+  availableArtists: string[];
 }
 
-export default function CategoryFilter({
+export default function ArtistFilter({
   selected,
   onSelect,
-  availableCategories,
-}: CategoryFilterProps) {
-  const categories = CATEGORIES.filter(
-    (c) => c === "All" || availableCategories.includes(c)
-  );
+  availableArtists,
+}: ArtistFilterProps) {
+  const options = ["All", ...availableArtists];
 
   return (
     <div className="flex flex-wrap gap-2 justify-center">
-      {categories.map((category) => (
+      {options.map((option) => (
         <button
-          key={category}
-          onClick={() => onSelect(category)}
+          key={option}
+          onClick={() => onSelect(option)}
           className={`relative px-5 py-2 text-sm rounded-full transition-all duration-300 ${
-            selected === category
+            selected === option
               ? "text-white"
               : "text-text-secondary hover:text-text-primary bg-bg-secondary border border-border"
           }`}
         >
-          {selected === category && (
+          {selected === option && (
             <motion.span
-              layoutId="category-pill"
+              layoutId="artist-pill"
               className="absolute inset-0 bg-accent rounded-full"
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
             />
           )}
-          <span className="relative z-10">{category}</span>
+          <span className="relative z-10">{option}</span>
         </button>
       ))}
     </div>

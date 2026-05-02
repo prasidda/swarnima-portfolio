@@ -53,8 +53,12 @@ export default function ArtworkTable({ artworks }: { artworks: Artwork[] }) {
     const supabase = createClient();
 
     try {
-      // Delete image from storage
-      await supabase.storage.from("artworks").remove([artwork.image_path]);
+      // Delete image (and any extras) from storage
+      const allPaths = [
+        artwork.image_path,
+        ...(artwork.additional_images ?? []),
+      ].filter(Boolean);
+      await supabase.storage.from("artworks").remove(allPaths);
 
       // Delete row from database
       const { error } = await supabase
@@ -96,7 +100,7 @@ export default function ArtworkTable({ artworks }: { artworks: Artwork[] }) {
               Artwork
             </th>
             <th className="pb-3 text-xs tracking-[0.2em] uppercase text-text-secondary font-normal">
-              Category
+              Artist
             </th>
             <th className="pb-3 text-xs tracking-[0.2em] uppercase text-text-secondary font-normal">
               Price
@@ -134,7 +138,7 @@ export default function ArtworkTable({ artworks }: { artworks: Artwork[] }) {
               </td>
               <td className="py-4 pr-4">
                 <span className="text-sm text-text-secondary">
-                  {artwork.category ?? "—"}
+                  {artwork.artist ?? "—"}
                 </span>
               </td>
               <td className="py-4 pr-4">

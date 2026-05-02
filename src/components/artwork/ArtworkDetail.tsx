@@ -1,13 +1,21 @@
 "use client";
 
+import { useMemo, useState } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
 import { Artwork } from "@/lib/types";
 import { getImageUrl } from "@/lib/constants";
-import AnimatedImage from "@/components/ui/AnimatedImage";
 
 export default function ArtworkDetail({ artwork }: { artwork: Artwork }) {
+  const allImages = useMemo(() => {
+    const extras = artwork.additional_images ?? [];
+    return [artwork.image_path, ...extras.filter(Boolean)];
+  }, [artwork.image_path, artwork.additional_images]);
+
+  const [activeIdx, setActiveIdx] = useState(0);
+  const activePath = allImages[activeIdx] ?? artwork.image_path;
+
   const priceDisplay = artwork.is_sold
     ? "Sold"
     : artwork.price
@@ -30,21 +38,52 @@ export default function ArtworkDetail({ artwork }: { artwork: Artwork }) {
         </Link>
       </motion.div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
-        {/* Image */}
+      <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-10 lg:gap-14">
+        {/* Image gallery */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="relative aspect-[3/4] bg-bg-secondary rounded-2xl overflow-hidden shadow-sm"
+          className="space-y-4"
         >
-          <AnimatedImage
-            src={getImageUrl(artwork.image_path)}
-            alt={artwork.title}
-            fill
-            className="object-contain"
-            priority
-          />
+          <div className="relative w-full overflow-hidden rounded-2xl shadow-sm">
+            <AnimatePresence mode="wait">
+              <motion.img
+                key={activePath}
+                src={getImageUrl(activePath)}
+                alt={artwork.title}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+                className="block w-full h-auto"
+              />
+            </AnimatePresence>
+          </div>
+
+          {allImages.length > 1 && (
+            <div className="flex gap-2 sm:gap-3 overflow-x-auto pb-1 -mx-1 px-1 snap-x">
+              {allImages.map((path, idx) => (
+                <button
+                  key={path + idx}
+                  onClick={() => setActiveIdx(idx)}
+                  className={`relative shrink-0 w-20 h-20 sm:w-24 sm:h-24 overflow-hidden rounded-lg snap-start transition-all duration-200 ${
+                    idx === activeIdx
+                      ? "ring-2 ring-accent ring-offset-2 ring-offset-bg-primary"
+                      : "opacity-70 hover:opacity-100"
+                  }`}
+                  aria-label={`View image ${idx + 1}`}
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={getImageUrl(path)}
+                    alt=""
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                </button>
+              ))}
+            </div>
+          )}
         </motion.div>
 
         {/* Details */}
@@ -67,28 +106,30 @@ export default function ArtworkDetail({ artwork }: { artwork: Artwork }) {
           )}
 
           <div className="grid grid-cols-2 gap-4 mb-8">
+            {artwork.artist && (
+              <div className="bg-bg-tertiary rounded-lg p-4">
+                <span className="text-xs text-text-secondary block mb-1">
+                  Artist
+                </span>
+                <p className="text-sm text-text-primary">{artwork.artist}</p>
+              </div>
+            )}
             {artwork.medium && (
               <div className="bg-bg-tertiary rounded-lg p-4">
-                <span className="text-xs text-text-secondary block mb-1">Medium</span>
+                <span className="text-xs text-text-secondary block mb-1">
+                  Medium
+                </span>
                 <p className="text-sm text-text-primary">{artwork.medium}</p>
               </div>
             )}
             {artwork.dimensions && (
-              <div className="bg-bg-tertiary rounded-lg p-4">
-                <span className="text-xs text-text-secondary block mb-1">Size</span>
-                <p className="text-sm text-text-primary">{artwork.dimensions}</p>
-              </div>
-            )}
-            {artwork.year && (
-              <div className="bg-bg-tertiary rounded-lg p-4">
-                <span className="text-xs text-text-secondary block mb-1">Year</span>
-                <p className="text-sm text-text-primary">{artwork.year}</p>
-              </div>
-            )}
-            {artwork.category && (
-              <div className="bg-bg-tertiary rounded-lg p-4">
-                <span className="text-xs text-text-secondary block mb-1">Category</span>
-                <p className="text-sm text-text-primary">{artwork.category}</p>
+              <div className="bg-bg-tertiary rounded-lg p-4 col-span-2">
+                <span className="text-xs text-text-secondary block mb-1">
+                  Size
+                </span>
+                <p className="text-sm text-text-primary">
+                  {artwork.dimensions}
+                </p>
               </div>
             )}
           </div>

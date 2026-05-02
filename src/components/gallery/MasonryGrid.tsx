@@ -28,11 +28,11 @@ export default function MasonryGrid({ artworks }: MasonryGridProps) {
   return (
     <Masonry
       breakpointCols={breakpointColumns}
-      className="flex -ml-8 w-auto"
-      columnClassName="pl-8 bg-clip-padding"
+      className="flex -ml-4 sm:-ml-6 lg:-ml-8 w-auto"
+      columnClassName="pl-4 sm:pl-6 lg:pl-8 bg-clip-padding"
     >
       {artworks.map((artwork, index) => (
-        <div key={artwork.id} className="mb-8">
+        <div key={artwork.id} className="mb-4 sm:mb-6 lg:mb-8">
           <ArtworkCard artwork={artwork} index={index} />
         </div>
       ))}

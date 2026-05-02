@@ -4,9 +4,10 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { createClient } from "@/lib/supabase/client";
-import { Artwork, ArtworkFormData } from "@/lib/types";
-import { CATEGORIES, getImageUrl } from "@/lib/constants";
+import { Artwork, ArtworkFormData, ARTISTS } from "@/lib/types";
+import { getImageUrl } from "@/lib/constants";
 import ImageUploader from "./ImageUploader";
+import MultiImageUploader, { ExtraImage } from "./MultiImageUploader";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
 
 interface ArtworkFormProps {
@@ -18,14 +19,20 @@ export default function ArtworkForm({ mode, artwork }: ArtworkFormProps) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [imageFile, setImageFile] = useState<File | null>(null);
+  const [extraImages, setExtraImages] = useState<ExtraImage[]>(
+    (artwork?.additional_images ?? []).map((path) => ({
+      id: path,
+      existingPath: path,
+      previewUrl: getImageUrl(path),
+    }))
+  );
   const [formData, setFormData] = useState<ArtworkFormData>({
     title: artwork?.title ?? "",
     description: artwork?.description ?? "",
     medium: artwork?.medium ?? "",
     dimensions: artwork?.dimensions ?? "",
-    year: artwork?.year?.toString() ?? "",
     price: artwork?.price?.toString() ?? "",
-    category: artwork?.category ?? "",
+    artist: artwork?.artist ?? "",
     is_featured: artwork?.is_featured ?? false,
   });
 
@@ -36,10 +43,28 @@ export default function ArtworkForm({ mode, artwork }: ArtworkFormProps) {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
+  const uploadFile = async (file: File): Promise<string> => {
+    const supabase = createClient();
+    const timestamp = Date.now();
+    const sanitizedName = file.name.replace(/[^a-zA-Z0-9.-]/g, "_");
+    const filePath = `${timestamp}-${Math.random().toString(36).slice(2, 6)}-${sanitizedName}`;
+
+    const { error: uploadError } = await supabase.storage
+      .from("artworks")
+      .upload(filePath, file);
+
+    if (uploadError) throw uploadError;
+    return filePath;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (mode === "create" && !imageFile) {
-      toast.error("Please select an image");
+      toast.error("Please select a main image");
+      return;
+    }
+    if (!formData.artist) {
+      toast.error("Please select the artist");
       return;
     }
 
@@ -49,26 +74,32 @@ export default function ArtworkForm({ mode, artwork }: ArtworkFormProps) {
     try {
       let imagePath = artwork?.image_path ?? "";
 
-      // Upload image if a new file is selected
       if (imageFile) {
-        const timestamp = Date.now();
-        const sanitizedName = imageFile.name.replace(/[^a-zA-Z0-9.-]/g, "_");
-        const filePath = `${timestamp}-${sanitizedName}`;
+        imagePath = await uploadFile(imageFile);
 
-        const { error: uploadError } = await supabase.storage
-          .from("artworks")
-          .upload(filePath, imageFile);
-
-        if (uploadError) throw uploadError;
-
-        // Delete old image if editing
         if (mode === "edit" && artwork?.image_path) {
-          await supabase.storage
-            .from("artworks")
-            .remove([artwork.image_path]);
+          await supabase.storage.from("artworks").remove([artwork.image_path]);
         }
+      }
 
-        imagePath = filePath;
+      // Upload any new extra images
+      const finalExtraPaths: string[] = [];
+      for (const extra of extraImages) {
+        if (extra.existingPath) {
+          finalExtraPaths.push(extra.existingPath);
+        } else if (extra.file) {
+          const path = await uploadFile(extra.file);
+          finalExtraPaths.push(path);
+        }
+      }
+
+      // Remove any extras that were dropped (existed before but aren't kept)
+      if (mode === "edit") {
+        const previous = artwork?.additional_images ?? [];
+        const removed = previous.filter((p) => !finalExtraPaths.includes(p));
+        if (removed.length > 0) {
+          await supabase.storage.from("artworks").remove(removed);
+        }
       }
 
       const artworkData = {
@@ -76,11 +107,11 @@ export default function ArtworkForm({ mode, artwork }: ArtworkFormProps) {
         description: formData.description || null,
         medium: formData.medium || null,
         dimensions: formData.dimensions || null,
-        year: formData.year ? parseInt(formData.year) : null,
         price: formData.price ? parseFloat(formData.price) : null,
-        category: formData.category || null,
+        artist: formData.artist || null,
         is_featured: formData.is_featured,
         image_path: imagePath,
+        additional_images: finalExtraPaths,
       };
 
       if (mode === "create") {
@@ -114,7 +145,7 @@ export default function ArtworkForm({ mode, artwork }: ArtworkFormProps) {
     <form onSubmit={handleSubmit} className="max-w-2xl space-y-6">
       <div>
         <label className="block text-xs tracking-[0.2em] uppercase text-text-secondary mb-2">
-          Image *
+          Main Image *
         </label>
         <ImageUploader
           file={imageFile}
@@ -123,6 +154,38 @@ export default function ArtworkForm({ mode, artwork }: ArtworkFormProps) {
             artwork?.image_path ? getImageUrl(artwork.image_path) : undefined
           }
         />
+      </div>
+
+      <div>
+        <label className="block text-xs tracking-[0.2em] uppercase text-text-secondary mb-2">
+          Additional Images
+        </label>
+        <p className="text-xs text-text-secondary/70 mb-3">
+          These show as a gallery on the artwork detail page.
+        </p>
+        <MultiImageUploader
+          images={extraImages}
+          onChange={setExtraImages}
+        />
+      </div>
+
+      <div>
+        <label className="block text-xs tracking-[0.2em] uppercase text-text-secondary mb-2">
+          Artist *
+        </label>
+        <select
+          required
+          value={formData.artist}
+          onChange={(e) => updateField("artist", e.target.value)}
+          className={inputClasses}
+        >
+          <option value="">Select artist</option>
+          {ARTISTS.map((a) => (
+            <option key={a} value={a}>
+              {a}
+            </option>
+          ))}
+        </select>
       </div>
 
       <div>
@@ -168,63 +231,30 @@ export default function ArtworkForm({ mode, artwork }: ArtworkFormProps) {
 
         <div>
           <label className="block text-xs tracking-[0.2em] uppercase text-text-secondary mb-2">
-            Dimensions
+            Size
           </label>
           <input
             type="text"
             value={formData.dimensions}
             onChange={(e) => updateField("dimensions", e.target.value)}
             className={inputClasses}
-            placeholder='e.g. 24 x 36 inches'
+            placeholder="e.g. 24 x 36 inches"
           />
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-        <div>
-          <label className="block text-xs tracking-[0.2em] uppercase text-text-secondary mb-2">
-            Year
-          </label>
-          <input
-            type="number"
-            value={formData.year}
-            onChange={(e) => updateField("year", e.target.value)}
-            className={inputClasses}
-            placeholder="2024"
-          />
-        </div>
-
-        <div>
-          <label className="block text-xs tracking-[0.2em] uppercase text-text-secondary mb-2">
-            Price ($)
-          </label>
-          <input
-            type="number"
-            step="0.01"
-            value={formData.price}
-            onChange={(e) => updateField("price", e.target.value)}
-            className={inputClasses}
-            placeholder="Leave empty for 'Price on Request'"
-          />
-        </div>
-
-        <div>
-          <label className="block text-xs tracking-[0.2em] uppercase text-text-secondary mb-2">
-            Category
-          </label>
-          <select
-            value={formData.category}
-            onChange={(e) => updateField("category", e.target.value)}
-            className={inputClasses}
-          >
-            <option value="">Select category</option>
-            {CATEGORIES.filter((c) => c !== "All").map((cat) => (
-              <option key={cat} value={cat}>
-                {cat}
-              </option>
-            ))}
-          </select>
-        </div>
+      <div>
+        <label className="block text-xs tracking-[0.2em] uppercase text-text-secondary mb-2">
+          Price ($)
+        </label>
+        <input
+          type="number"
+          step="0.01"
+          value={formData.price}
+          onChange={(e) => updateField("price", e.target.value)}
+          className={inputClasses}
+          placeholder="Leave empty for 'Price on Request'"
+        />
       </div>
 
       <div className="flex items-center gap-3">
