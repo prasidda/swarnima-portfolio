@@ -25,7 +25,7 @@ export default function FeaturedGallery({ artworks }: FeaturedGalleryProps) {
         <h2 className="font-serif text-3xl sm:text-4xl text-text-primary mb-3">
           Favorites
         </h2>
-        <p className="text-text-secondary">A few of our pieces — there&apos;s a lot more</p>
+        <p className="text-text-secondary">A few of our pieces, there&apos;s a lot more</p>
       </motion.div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 items-start">
